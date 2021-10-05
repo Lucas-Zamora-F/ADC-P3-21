@@ -69,7 +69,7 @@ def validar_ins(instruction, opc, cant):
         arg = ','.join(instruction[1])
         return f'Instruccion invalida: {ins_trans}{arg}'
 
-    if len(instruction) == 1:
+    if len(instruction) < 2:
         return f'Instruccion incompleta'
 
     if type(instruction[1]) is list:
