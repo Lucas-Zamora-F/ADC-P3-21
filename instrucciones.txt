@@ -246,19 +246,19 @@ Dir
 
 CALL
 Dir
-#
-
-RET
-#
+0
 
 PUSH
 A
-#
+0
 B
-#
+0
 
 POP
 A
-#
+0
 B
-#
+0
+
+RET
+0

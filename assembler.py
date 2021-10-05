@@ -56,21 +56,29 @@ def lectura(nombre):
                     if ',' in i[1]:
                         i[1] = i[1].split(',')
                     instructions.append(i)
+                elif len(i) == 1:
+                    instructions.append(i)
             except:
                 pass
-
     return instructions, cant
 
 def validar_ins(instruction, opc, cant):
 
     ins_trans = instruction[0]+' '
 
-    if instruction[0] == 'RET' and len(instruction) != 1:
-        arg = ','.join(instruction[1])
-        return f'Instruccion invalida: {ins_trans}{arg}'
+    if instruction[0] == 'RET':
+        if len(instruction) != 1:
+            arg = ','.join(instruction[1])
+            return f'Instruccion invalida: {ins_trans}{arg}' 
+        if len(instruction) == 1:
+            return True  
 
     if len(instruction) < 2:
-        return f'Instruccion incompleta'
+        inst = ','.join(instruction)
+        if instruction[0] in operaciones:
+            return f'Instruccion incompleta: {inst}'
+        else:
+            return f'Instruccion no existe: {inst}'
 
     if type(instruction[1]) is list:
         if len(instruction[1]) > 2:
@@ -107,7 +115,7 @@ def validar_ins(instruction, opc, cant):
                     return f'Direccion fuera de rango en instruccion {ins_trans}{instruction[1]}'
             ins_trans += 'Dir'
         else:
-            #INC, RET, RST
+            #INC, RST
             arg = instruction[1]
             if arg!="A" and arg!="B" and arg!="(B)" and arg!="(A)":
                 if '(' in arg:
@@ -116,7 +124,7 @@ def validar_ins(instruction, opc, cant):
                     ins_trans += 'Lit'
             else:
                 ins_trans += arg
-        
+
     if ins_trans in opc.keys():
         return True
     else:
