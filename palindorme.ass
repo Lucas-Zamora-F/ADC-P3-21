@@ -1,0 +1,38 @@
+DATA:
+  inicio 0
+  largo 0
+  final 0
+  res 0
+CODE:
+set:
+  MOV B,(inicio)
+  ADD B,(largo)
+  SUB B,1
+  MOV (final),B
+start:
+  MOV B,(inicio)
+  MOV A,(B)
+  ADD B,(largo)
+  SUB B,1
+comp:
+  CMP A,B
+  JEQ act
+  JMP dist
+act:
+  MOV B,(res)
+  MOV B,1
+  MOV (res),B
+  INC (inicio)
+  MOV B,(inicio)
+  MOV A,(B)
+  MOV B,(final)
+  CMP A,B
+  JEQ fin
+  JMP start
+dist:
+  MOV B,(res)
+  MOV B,0
+  MOV (res),B
+  JMP fin
+fin:
+  MOV B,(res)

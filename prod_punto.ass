@@ -1,0 +1,32 @@
+DATA:
+    inicio1
+    inicio2 
+    n 2
+    temp 0
+    pp 0
+CODE:
+    MOV B,(inicio1)
+    MOV A,(B)
+    MOV (temp),(B)
+    MOV B,(inicio2)
+    MOV B,(B)
+mult:
+    CMP B,0
+    JEQ suma
+    ADD A,temp
+    SUB B,1
+    JMP mult
+suma:
+    MOV B,(pp)
+    ADD B,A
+    MOV (pp),B
+    MOV B,(n)
+    CMP B,0
+    JEQ terminar
+    SUB B,1
+    MOV (n),B
+    INC (inicio1)
+    INC (inicio2)
+    JMP main
+terminar:
+    MOV B,(pp)
