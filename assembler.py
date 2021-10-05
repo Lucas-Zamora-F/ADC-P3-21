@@ -65,6 +65,13 @@ def validar_ins(instruction, opc, cant):
 
     ins_trans = instruction[0]+' '
 
+    if instruction[0] == 'RET' and len(instruction) != 1:
+        arg = ','.join(instruction[1])
+        return f'Instruccion invalida: {ins_trans}{arg}'
+
+    if len(instruction) == 1:
+        return f'Instruccion incompleta'
+
     if type(instruction[1]) is list:
         if len(instruction[1]) > 2:
             arg = instruction[1]
@@ -117,7 +124,7 @@ def validar_ins(instruction, opc, cant):
         
 def main():
     opc = opcodes(operaciones)
-    instructions, cant= lectura('p3-ej_incorrecto.ass')
+    instructions, cant= lectura('../p3-ej_incorrecto.ass')
     cont = 1
     for ins in instructions:
         val = validar_ins(ins, opc, cant)
